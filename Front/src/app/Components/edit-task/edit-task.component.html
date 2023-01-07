@@ -1,0 +1,17 @@
+<div class="wrapper">
+
+    <label>Дата создания: {{Task.DateCreate | date: 'dd/MM/yyyy'}}</label>
+
+<mat-form-field class="example-form-field">
+    <mat-label>Задача</mat-label>
+    <input matInput type="text" [(ngModel)]="Task.Text">
+  </mat-form-field>
+
+  <mat-form-field class="example-form-field">
+    <mat-label>Описание задачи</mat-label>
+    <input matInput type="text" [(ngModel)]="Task.Description">
+  </mat-form-field>
+
+  <button mat-button (click)="Edit()" >Сохранить</button>
+  <button mat-button  [hidden]="IsNewTask"  (click)="Delete()"  >Удалить </button>
+</div>

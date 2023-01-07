@@ -1,0 +1,39 @@
+ 
+
+  <table mat-table [dataSource]="ToDoList" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  
+    <!-- Position Column -->
+
+   
+      
+        
+        <ng-container matColumnDef="Text" class="task">
+          <th mat-header-cell *matHeaderCellDef>Дата создания</th>
+          <td mat-cell *matCellDef="let element of ToDoList"> {{element.DateCreate | date: 'dd/MM/yyyy'}} </td>
+        </ng-container>
+      
+        <!-- Name Column -->
+        <ng-container matColumnDef="Task" class="task">
+          <th mat-header-cell *matHeaderCellDef> Задача </th>
+          <td mat-cell *matCellDef="let element of ToDoList"> {{element.Text}} </td>
+        </ng-container>
+      
+        <!-- Weight Column -->
+        <ng-container matColumnDef="Description" class="task">
+          <th mat-header-cell *matHeaderCellDef> Описание </th>
+          <td mat-cell *matCellDef="let element"> {{element.Description}} </td>
+        </ng-container>
+        
+        
+
+ 
+    
+  
+     
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr class="rowTable" mat-row *matRowDef="let todo of ToDoList; columns: displayedColumns;" (click) = "OpenTask(todo.Id)"></tr>
+  </table>

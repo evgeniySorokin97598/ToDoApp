@@ -1,0 +1,13 @@
+table {
+  margin: 2%;
+ 
+    width: 96%;
+  }
+
+   
+
+   .rowTable:hover { 
+    cursor: pointer;
+    transform: scale(1.05);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 0px 10px 0 rgba(0,0,0,0.12);
+   }

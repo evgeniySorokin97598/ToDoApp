@@ -1,0 +1,13 @@
+.menu{
+    width: 10%;
+    float: left;
+    background-color: black;
+    color: red;
+}
+.content{
+
+align-items: center;
+float: left;
+width: 100%;
+}
+
