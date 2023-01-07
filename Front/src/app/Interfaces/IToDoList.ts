@@ -6,4 +6,5 @@ export interface IToDoList{
      EditTask(task:ToDo):Promise<void>;
      AddNewTask(task:ToDo):Promise<void>;
      RemoveTask(id:number):Promise<void>;
+     Init():void;
 }

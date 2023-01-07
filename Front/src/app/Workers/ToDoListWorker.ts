@@ -1,16 +1,36 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { interval } from "rxjs";
 import { ToDo } from "../Entities/ToDo";
 import { IToDoList } from "../Interfaces/IToDoList";
+import { ConfigService, ConfigurationService } from "../Services/ConfigService";
 
 export class ToDoListWorker implements IToDoList{
-    _url:string = "https://localhost:44386/";
- 
-    constructor (private http :HttpClient){
+    private  _url:string = "";
+    
+
+
+    constructor (private http :HttpClient,private configurationService: ConfigurationService){
+           
+     
+         
         
+        
+        
+
+    }
+
+    public Init(){
+        this.configurationService.load();
+        this.configurationService.getValue("apiUrl").subscribe(data => {
+          this._url = data
+          console.log(data);
+      });
+
     }
 
     async GetToDoListAsync(): Promise<ToDo[]> {
         console.log("Запрос");
+        console.log("Адрес: " + this._url)
          return await this.GetRequest(this._url+"ToDo/GetToDoList")
     }
 

@@ -20,6 +20,7 @@ import { EditTaskComponent } from './Components/edit-task/edit-task.component';
 import {MatInputModule} from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table'  
+import { ConfigurationService } from './Services/ConfigService';
 
 const routes: Routes = [
   {path: 'ToDoList', component:ListComponent},
@@ -51,7 +52,8 @@ const routes: Routes = [
     MatTableModule
   ],
   providers: [
-    ServerService
+    ServerService,
+    ConfigurationService
   ],
   bootstrap: [AppComponent]
 })

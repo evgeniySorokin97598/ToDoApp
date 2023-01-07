@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { interval } from 'rxjs';
+import { ConfigurationService } from './Services/ConfigService';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ToDoList';
+  constructor(private configurationService: ConfigurationService) {
+    
+     
+    
+
+  }
 }

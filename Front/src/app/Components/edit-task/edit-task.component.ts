@@ -22,13 +22,14 @@ export class EditTaskComponent implements OnInit {
   async ngOnInit(): Promise<void> {
       let s = this.router.snapshot.paramMap.get("id");
       
-      console.log(s);
-      let id =  Number(s);
-      if (id == -1){
+      
+      
+      if (s == "NewTask"){
         this.IsNewTask = true;
 
       }
       else{
+        let id =  Number(s);
         let result = await this.service.GetTaskById(id);
         this.Task = result;
         this.IsNewTask = false;

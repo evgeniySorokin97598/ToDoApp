@@ -1,16 +1,18 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ToDo } from "../Entities/ToDo";
+import { IConfig } from "../Interfaces/IConfig";
 import { IToDoList } from "../Interfaces/IToDoList";
 import { ToDoListWorker } from "../Workers/ToDoListWorker";
+import { ConfigService, ConfigurationService } from "./ConfigService";
 
 @Injectable()
 export class ServerService{
 
     private _toDoListWorker:IToDoList;
-    constructor(private http :HttpClient){
-        this._toDoListWorker = new ToDoListWorker(http);
-
+    constructor(private http :HttpClient,private configurationService: ConfigurationService ){
+        this._toDoListWorker = new ToDoListWorker(http,configurationService);
+        this._toDoListWorker.Init()
     }
     public async GetToDoListAsync():Promise<ToDo[]>{
      return await  this._toDoListWorker.GetToDoListAsync();

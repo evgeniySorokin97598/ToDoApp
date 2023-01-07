@@ -1,24 +1,49 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
+import { catchError, filter, map, mapTo, Observable, of, ReplaySubject, tap } from 'rxjs';
 
-import { Config } from '../Interfaces/IConfig';
+import { IConfig } from '../Interfaces/IConfig';
 
-export const CONFIG_DEFAULT: Config = {
-  apiHost: '',
-};
 
-@Injectable({
-  providedIn: 'root',
-})
+export const ENVIRONMENT = new InjectionToken<{ [key: string]: any }>('environment');
+ 
 export class ConfigService {
-  private readonly config: Config;
+  private readonly environment: any;
 
-  constructor() {
-    this.config = {
-      apiHost: process.env["API_HOST"] ?? CONFIG_DEFAULT.apiHost,
-    };
+  // We need @Optional to be able start app without providing environment file
+  constructor(@Optional() @Inject(ENVIRONMENT) environment: any) {
+    this.environment = environment !== null ? environment : {};
   }
 
-  GetConfig(): Config {
-    return this.config;
+  getValue(key: string, defaultValue?: any): any {
+    return this.environment[key] || defaultValue;
   }
 }
+@Injectable()
+export class ConfigurationService {
+  private configurationSubject = new ReplaySubject<any>(1);
+
+  constructor(private httpClient: HttpClient) {
+            this.load();
+ 
+  }
+
+  // method can be used to refresh configuration
+  load(): void {
+    this.httpClient.get('/assets/config.json')
+      .pipe(
+        catchError(() => of(null)),
+        filter(Boolean),
+      )
+      .subscribe((configuration: any) => this.configurationSubject.next(configuration));
+  }
+
+  getValue(key: string, defaultValue?: any): Observable<any> {
+    return this.configurationSubject
+      .pipe(
+        map((configuration: any) => configuration[key] || defaultValue),
+      );
+  }
+}
+
+ 
