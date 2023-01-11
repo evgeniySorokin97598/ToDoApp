@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class EditTaskComponent implements OnInit {
 
   public Task :ToDo = new ToDo();
-  public IsNewTask = false;
+  public IsNewTask = true;
 
   constructor(private router: ActivatedRoute,private service:ServerService,private routerPage: Router) { 
     this.Task = new ToDo();

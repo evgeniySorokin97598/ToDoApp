@@ -22,7 +22,12 @@ namespace ToDoList.Repositories.Repositories
         public ToDoListRepository(DataBaseCreds creds)
         {
             _creds = creds;
-            string conString = $"Host={_creds.Host};Port={_creds.Port};Username={_creds.UserName};Password={_creds.Password}";
+            Console.WriteLine("Хост " + creds.Host);
+            Console.WriteLine("порт " + creds.Port);
+            Console.WriteLine("UserName " + creds.UserName);
+            Console.WriteLine("Password " + creds.Password);
+
+            string conString = $"Host={_creds.Host}:{_creds.Port};Username={_creds.UserName};Password={_creds.Password}";
             _connection = new NpgsqlConnection(conString);
 
             _connection.Open();
@@ -40,15 +45,17 @@ namespace ToDoList.Repositories.Repositories
         {
             try
             {
-                string sql = @"CREATE DATABASE " + $"\"{_databaseName}\"" + "" +
+                Console.WriteLine($"Попытка создания БД");
+                string sql = @"CREATE DATABASE " + $"\"{_databaseName}\""  +
                     @"WITH
                 OWNER = postgres
                 ENCODING = 'UTF8'
-                LC_COLLATE = 'en_US.UTF-8'
-                LC_CTYPE = 'en_US.UTF-8'
+                LC_COLLATE = 'en_US.utf8'
+                LC_CTYPE = 'en_US.utf8'
                 TABLESPACE = pg_default
                 CONNECTION LIMIT = -1
                 IS_TEMPLATE = False;";
+                
                 _connection.Execute(sql);
             }
             catch (Exception ex)

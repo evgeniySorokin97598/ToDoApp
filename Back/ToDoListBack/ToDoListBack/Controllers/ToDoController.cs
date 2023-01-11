@@ -47,6 +47,7 @@ namespace ToDoList.Controllers
         {
             try
             {
+                Console.WriteLine("+");
                 var result = await _repository.AddToDoAsync(toDo);
                 return Ok(result);
             }
